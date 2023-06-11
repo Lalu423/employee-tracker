@@ -13,3 +13,6 @@ VALUES ('CEO', 200000, 1),
         ('Receptionist', 55000, 4),
         ('HR Officer', 75000, 5);
 
+INSERT INTO employee (first_name, last_name, role_id, manage_id)
+VALUES ()
+
