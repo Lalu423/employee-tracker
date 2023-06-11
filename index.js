@@ -70,7 +70,7 @@ const menu = async function () {
             message: 'What would you like to see?',
             type: 'list',
             name: 'option',
-            choices: ["View all departments", "View all roles", "View all employees", "Add department", "Add role", "Add employee", "update employee role"]
+            choices: ["View all departments", "View all roles", "View all employees", "Add department", "Add role", "Add employee", "Update employee role"]
         }
     ])
     if (answers.option === "View all departments") {
@@ -206,6 +206,34 @@ const addEmployee = async function () {
     await showTable([otherData]);
     // console.log(otherData);
     await db.query("INSERT INTO employee SET ?", otherData);
+    await menu();
+};
+
+const updateEmployee = async function () {
+    const results = await db.query("SELECT * FROM employee")
+    const dbData = results[0];
+    const choiceData = dbData.map((row) => ({
+        name: row.first_name + " " + row.last_name,
+        value: row
+    }))
+    const answers = await inquirer.prompt
+        ([
+            {
+                message: "Who's role would you like to update?",
+                type: 'list',
+                choices: choiceData,
+                name: 'new'
+
+            },
+            {
+                message: "What is their new role?",
+                type: 'list',
+                choices: ["1", "2", "3", "4", "5"],
+                name: "role_id"
+
+            },
+        ])
+    await db.query("UPDATE employee SET ? WHERE role_id ", answers);
     await menu();
 };
 
