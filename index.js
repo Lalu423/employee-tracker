@@ -56,12 +56,109 @@ async function showTable(data) {
     ]);
 }
 
-const dbData = [
-    { id: 1, name: "Jonathan" },
-    { id: 2, name: "Andrew" },
-    { id: 3, name: "Pete" },
-    { id: 4, name: "Nick" }
-]
+// const dbData = [
+//     { id: 1, name: "Jonathan" },
+//     { id: 2, name: "Andrew" },
+//     { id: 3, name: "Pete" },
+//     { id: 4, name: "Nick" }
+// ]
+
+const menu = async function () {
+    //console.log("do stuff!")
+    const answers = await inquirer.prompt([
+        {
+            message: 'What would you like to see?',
+            type: 'list',
+            name: 'option',
+            choices: ["View all departments", "View all roles", "View all employees", "Add department", "Add role", "Add employee", "update employee role"]
+        }
+    ])
+    if (answers.option === "View all departments") {
+        viewDepartments();
+    }
+    if (answers.option === "View all roles") {
+        viewRoles();
+    }
+    if (answers.option === "View all employees") {
+        viewEmployee();
+    }
+    if (answers.option === "Add department") {
+        addDepartment();
+    }
+    if (answers.option === "Add role") {
+        addRole();
+    }
+    if (answers.option === "Add employee") {
+        addEmployee();
+    }
+    if (answers.option === "Update employee role") {
+        updateEmployee();
+    }
+}
+
+const viewDepartments = async function () {
+    const results = await db.query("SELECT * FROM department");
+    const dbData = results[0];
+    await showTable(dbData)
+    await menu();
+
+}
+
+const viewRoles = async function () {
+    const results = await db.query("SELECT * FROM roles");
+    const dbData = results[0];
+    await showTable(dbData)
+    await menu();
+
+}
+
+const viewEmployee = async function () {
+    const results = await db.query("SELECT * FROM employee");
+    const dbData = results[0];
+    await showTable(dbData)
+    await menu();
+
+}
+const addDepartment = async function () {
+    const answers = await inquirer.prompt
+        ([
+            {
+                message: "What is the name of the new department?",
+                type: "input",
+                name: "dep_name"
+
+            }
+
+        ])
+    await db.query("INSERT INTO department SET ?", answers);
+    await menu();
+}
+const addRole = async function () {
+    const answers = await inquirer.prompt
+        ([
+            {
+                message: "What is the name of the new role?",
+                type: "input",
+                name: "title"
+
+            },
+            {
+                message: "What is the salary of this new role?",
+                type: "input",
+                name: "salary"
+
+            },
+            {
+                message: "What is the department id?",
+                type: "input",
+                name: "department_id"
+
+            }
+
+        ])
+    await db.query("INSERT INTO roles SET ?", answers);
+    await menu();
+}
 
 const addEmployee = async function () {
     console.log("test");
@@ -112,73 +209,7 @@ const addEmployee = async function () {
     await menu();
 };
 
-const addDepartment = async function () {
-    const answers = await inquirer.prompt
-        ([
-            {
-                message: "What is the name of the new department?",
-                type: "input",
-                name: "dep_name"
 
-            }
-
-        ])
-    await db.query("INSERT INTO department SET ?", answers);
-    await menu();
-}
-
-
-const menu = async function () {
-    //console.log("do stuff!")
-    const answers = await inquirer.prompt([
-        {
-            message: 'What would you like to see?',
-            type: 'list',
-            name: 'option',
-            choices: ["View all departments", "View all roles", "View all employees", "Add department", "Add role", "Add employee", "update employee role"]
-        }
-    ])
-    if (answers.option === "Add employee") {
-        addEmployee();
-
-    }
-    if (answers.option === "View all departments") {
-        viewDepartments();
-    }
-    if (answers.option === "View all roles") {
-        viewRoles();
-    }
-    if (answers.option === "View all employees") {
-        viewEmployee();
-    }
-    if (answers.option === "Add department") {
-        addDepartment();
-    }
-}
-
-const viewDepartments = async function () {
-    const results = await db.query("SELECT * FROM department");
-    const dbData = results[0];
-    await showTable(dbData)
-    await menu();
-
-}
-
-const viewRoles = async function () {
-    const results = await db.query("SELECT * FROM roles");
-    const dbData = results[0];
-    await showTable(dbData)
-    await menu();
-
-}
-
-const viewEmployee = async function () {
-    const results = await db.query("SELECT * FROM employee");
-    const dbData = results[0];
-    await showTable(dbData)
-    await menu();
-
-}
 
 
 
