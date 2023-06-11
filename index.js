@@ -1,35 +1,23 @@
 const inquirer = require('inquirer');
 const { table } = require('table');
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
 
+//Needed for Heroku
 const PORT = process.env.PORT || 3001;
 
 // Connect to database
-const db = mysql.createConnection(
+let db = mysql.createConnection(
     {
         host: 'localhost',
         user:'root',
-        password: '',
+        password: 'Bruno515!',
         database: 'registrar_db'
     },
-    console.log(`Connected to the employee database.`)
-);
-
-
-const menu =  async function () {
-    //console.log("do stuff!")
-    const answers = await inquirer.prompt([
-        {
-            message: 'What would you like to see?',
-            type: 'list',
-            name: 'option',
-            choices: ["View all departments", "View all roles", "View all employees", "Add department", "Add role", "Add an employee", "update employee role"]
-        }
-    ])
-    if(answers.option === "Add a course"){
-        
-    }
-}
+)
+.then((connection) => {
+    db = connection;
+    console.log(`Connected to the registrar_db databse.`)
+});
 
 const config = {
     border: {
@@ -66,9 +54,6 @@ async function showTable(data) {
             name: 'name'
         }
     ]);
-
-
-
 }
 
 const dbData = [
@@ -77,6 +62,27 @@ const dbData = [
     { id: 3, name: "Pete" },
     { id: 4, name: "Nick" }
 ]
+
+const addEmployee = function() {
+    console.log("test");
+}
+
+
+const menu =  async function () {
+    //console.log("do stuff!")
+    const answers = await inquirer.prompt([
+        {
+            message: 'What would you like to see?',
+            type: 'list',
+            name: 'option',
+            choices: ["View all departments", "View all roles", "View all employees", "Add department", "Add role", "Add employee", "update employee role"]
+        }
+    ])
+    if(answers.option === "Add employee"){
+        addEmployee();
+        
+    }
+}
 
 
 const init = async function () {
