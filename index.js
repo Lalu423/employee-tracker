@@ -9,15 +9,15 @@ const PORT = process.env.PORT || 3001;
 let db = mysql.createConnection(
     {
         host: 'localhost',
-        user:'root',
+        user: 'root',
         password: 'Bruno515!',
         database: 'registrar_db'
     },
 )
-.then((connection) => {
-    db = connection;
-    console.log(`Connected to the registrar_db databse.`)
-});
+    .then((connection) => {
+        db = connection;
+        console.log(`Connected to the registrar_db databse.`)
+    });
 
 const config = {
     border: {
@@ -63,7 +63,7 @@ const dbData = [
     { id: 4, name: "Nick" }
 ]
 
-const addEmployee = async function() {
+const addEmployee = async function () {
     console.log("test");
 
     const results = await db.query("SELECT * FROM employee");
@@ -71,64 +71,64 @@ const addEmployee = async function() {
     const choiceData = dbData.map((row) => ({
         name: row.first_name + " " + row.last_name,
         value: row
-    })) 
+    }))
     choiceData.push({
         name: "No Employee",
-        value: {id: null}
+        value: { id: null }
     })
     //await showTable(results);
-   const firstAnswer = await inquirer.prompt([
-    {
-      message: "Enter their first name",
-      type: 'input',
-      name: "first_name"
-    }
-  ]);
-  // console.log(firstAnswer);
-  // console.log(firstAnswer.instructor.id);
+    const firstAnswer = await inquirer.prompt([
+        {
+            message: "Enter their first name",
+            type: 'input',
+            name: "first_name"
+        }
+    ]);
+    // console.log(firstAnswer);
+    // console.log(firstAnswer.instructor.id);
 
-  const otherData = await inquirer.prompt([
-    {
-      message: "Enter their last name",
-      type: 'input',
-      name: "last_name"
-    },
-    {
-      message: "What is their role?",
-      type: 'input',
-      name: "role"
-    },
-    {
-      message: "What is their manager_id",
-      type: 'input',
-      name: "manager"
-    },
-  ]);
-  otherData.date_added = "2023-06-06";
-  otherData.role_id = firstAnswer.employee.first_name;
-  await showTable([otherData]);
-  // console.log(otherData);
-  await db.query("INSERT INTO employee SET ?", otherData);
-  await menu();
+    const otherData = await inquirer.prompt([
+        {
+            message: "Enter their last name",
+            type: 'input',
+            name: "last_name"
+        },
+        {
+            message: "What is their role?",
+            type: 'input',
+            name: "role"
+        },
+        {
+            message: "What is their manager_id",
+            type: 'input',
+            name: "manager"
+        },
+    ]);
+    otherData.date_added = "2023-06-06";
+    otherData.role_id = firstAnswer.employee.first_name;
+    await showTable([otherData]);
+    // console.log(otherData);
+    await db.query("INSERT INTO employee SET ?", otherData);
+    await menu();
 };
 
 const addDepartment = async function () {
     const answers = await inquirer.prompt
-    ([
-        {
-            message: "What is the name of the new department?",
-            type:"input",
-            name:"dep_name"
+        ([
+            {
+                message: "What is the name of the new department?",
+                type: "input",
+                name: "dep_name"
 
-        }
+            }
 
-    ])
+        ])
     await db.query("INSERT INTO department SET ?", answers);
     await menu();
 }
 
 
-const menu =  async function () {
+const menu = async function () {
     //console.log("do stuff!")
     const answers = await inquirer.prompt([
         {
@@ -138,20 +138,20 @@ const menu =  async function () {
             choices: ["View all departments", "View all roles", "View all employees", "Add department", "Add role", "Add employee", "update employee role"]
         }
     ])
-    if(answers.option === "Add employee"){
+    if (answers.option === "Add employee") {
         addEmployee();
-        
+
     }
-    if(answers.option === "View all departments"){
+    if (answers.option === "View all departments") {
         viewDepartments();
     }
-    if(answers.option === "View all roles"){
+    if (answers.option === "View all roles") {
         viewRoles();
     }
-    if(answers.option === "View all employees"){
+    if (answers.option === "View all employees") {
         viewEmployee();
     }
-    if(answers.option === "Add department"){
+    if (answers.option === "Add department") {
         addDepartment();
     }
 }
@@ -161,23 +161,23 @@ const viewDepartments = async function () {
     const dbData = results[0];
     await showTable(dbData)
     await menu();
-    
+
 }
 
 const viewRoles = async function () {
-    const results = await db.query("SELECT * FROM roles JOIN department ON roles.department_id=department.id");
+    const results = await db.query("SELECT * FROM roles");
     const dbData = results[0];
     await showTable(dbData)
     await menu();
-    
+
 }
 
 const viewEmployee = async function () {
-    const results = await db.query("SELECT * FROM employee JOIN roles ON employee.role_id=role.id");
+    const results = await db.query("SELECT * FROM employee");
     const dbData = results[0];
     await showTable(dbData)
     await menu();
-    
+
 }
 
 
