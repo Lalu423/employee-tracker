@@ -10,23 +10,23 @@
 - [Questions](#questions)
 
 ## Description
-      
+    This app will give the user the ability to manage their own employee database. They will be able to add, delete and update various forms of information within this database all using the command line.   
 
 ## Installation
 
-This app is deployed using Heroku. 
+This app uses Inquirer and Mysql.  
 
 ## Usage
 
-- [Deployed-website](https://notes1.herokuapp.com/)
+- [Video-Link]()
 - [Repo-link](https://github.com/Lalu423/note-taker)
 
 ### Sample Image
 
-<img src="https://github.com/Lalu423/note-taker/blob/main/public/assets/images/notes-sample.jpg" height="424" width="828"/>
+<img src="" height="424" width="828"/>
 
 ## Contribution
-    This app was made possible with the help of my instructors and tutors.  
+    This app was made possible with the help of my instructors and tutors. 
 
 ## Test
     There is no current Test function.  

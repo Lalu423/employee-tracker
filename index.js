@@ -5,6 +5,9 @@ const mysql = require('mysql2/promise');
 //Needed for Heroku
 const PORT = process.env.PORT || 3001;
 
+
+
+
 // Connect to database
 let db = mysql.createConnection(
     {
@@ -16,7 +19,6 @@ let db = mysql.createConnection(
 )
     .then((connection) => {
         db = connection;
-        console.log(`Connected to the registrar_db databse.`)
     });
 
 const config = {
