@@ -222,7 +222,7 @@ const updateEmployee = async function () {
                 message: "Who's role would you like to update?",
                 type: 'list',
                 choices: choiceData,
-                name: 'name'
+                name: 'first_name'
 
             },
             {
@@ -233,7 +233,7 @@ const updateEmployee = async function () {
 
             },
         ])
-    await db.query("UPDATE employee SET ? WHERE ?", answers);
+    await db.query("UPDATE employee SET role_id = ? WHERE role_id", answers);
     await menu();
 };
 
