@@ -1,6 +1,7 @@
 DROP DATABASE IF EXISTS registrar_db;
 CREATE DATABASE registrar_db;
 
+
 USE registrar_db;
 
 
@@ -10,13 +11,15 @@ CREATE TABLE department (
     PRIMARY KEY (id)
 );
 
+
 CREATE TABLE roles (
     id INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(30) NOT NULL,
     salary DECIMAL NOT NULL,
     department_id INT NOT NULL,
-    PRIMARY KEY (id)   
+    PRIMARY KEY (id)  
 );
+
 
 CREATE TABLE employee (
 id INT NOT NULL AUTO_INCREMENT,
