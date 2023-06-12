@@ -175,7 +175,7 @@ const addEmployee = async function () {
         {
             message: "What is their role?",
             type: 'list',
-            choices: ["1", "2", "3", "4", "5"],
+            choices: ["1 - GM", "2 - Accountant", "3 - Sales Rep", "4 - Receptionist", "5 - HR Officer"],
             name: "role_id"
         },
         {
