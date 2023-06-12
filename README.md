@@ -23,7 +23,7 @@ This app uses Inquirer and Mysql.
 
 ### Sample Image
 
-<img src="https://github.com/Lalu423/employee-tracker/blob/main/assets/employee-sample.jpg"/>
+<img src="https://github.com/Lalu423/employee-tracker/blob/main/assets/employee-sample.jpg" height="290" width="313"/>
 
 ## Contribution
     This app was made possible with the help of my instructors and tutors. 
