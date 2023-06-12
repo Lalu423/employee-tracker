@@ -161,30 +161,12 @@ const addRole = async function () {
 }
 
 const addEmployee = async function () {
-    console.log("test");
-
-    const results = await db.query("SELECT * FROM employee");
-    const dbData = results[0];
-    const choiceData = dbData.map((row) => ({
-        name: row.first_name + " " + row.last_name,
-        value: row
-    }))
-    choiceData.push({
-        name: "No Employee",
-        value: { id: null }
-    })
-    //await showTable(results);
-    const firstAnswer = await inquirer.prompt([
+    const otherData = await inquirer.prompt([
         {
             message: "Enter their first name",
             type: 'input',
             name: "first_name"
-        }
-    ]);
-    // console.log(firstAnswer);
-    // console.log(firstAnswer.instructor.id);
-
-    const otherData = await inquirer.prompt([
+        },
         {
             message: "Enter their last name",
             type: 'input',
@@ -192,19 +174,17 @@ const addEmployee = async function () {
         },
         {
             message: "What is their role?",
-            type: 'input',
-            name: "role"
+            type: 'list',
+            choices: ["1", "2", "3", "4", "5"],
+            name: "role_id"
         },
         {
             message: "What is their manager_id",
-            type: 'input',
-            name: "manager"
+            type: 'list',
+            choices: ["1", "2", "3", "4", "5"],
+            name: "manage_id"
         },
     ]);
-    otherData.date_added = "2023-06-06";
-    otherData.role_id = firstAnswer.employee.first_name;
-    await showTable([otherData]);
-    // console.log(otherData);
     await db.query("INSERT INTO employee SET ?", otherData);
     await menu();
 };
@@ -233,7 +213,7 @@ const updateEmployee = async function () {
 
             },
         ])
-    await db.query("UPDATE employee SET role_id = ? WHERE role_id", answers);
+    await db.query("UPDATE employee SET role_id = ? WHERE ", answers);
     await menu();
 };
 
