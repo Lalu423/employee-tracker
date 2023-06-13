@@ -18,7 +18,7 @@ This app uses Inquirer and Mysql.
 
 ## Usage
 
-- [Video-Link]()
+- [Video-Link](https://drive.google.com/file/d/1ctNeLAc2AOJ4cTCDiQGjAqgx80I-BqtW/view?usp=sharing)
 - [Repo-link](https://github.com/Lalu423/note-taker)
 
 ### Sample Image
