@@ -10,7 +10,8 @@
 - [Questions](#questions)
 
 ## Description
-    This app will give the user the ability to manage their own employee database. They will be able to add, delete and update various forms of information within this database all using the command line.   
+    This app will give the user the ability to manage their own employee database. 
+    They will be able to add, delete and update various forms of information within this database all using the command line.   
 
 ## Installation
 
